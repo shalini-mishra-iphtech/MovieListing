@@ -1,6 +1,7 @@
 package com.example.movielisting
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movielisting.adapter.MovieAdapter
 import com.example.movielisting.model.ApiResponse
 import com.example.movielisting.network.ApiService
-import com.example.movielisting.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,14 +61,17 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
                     val movies = response.body()?.data ?: emptyList() // ✅ Extracting list from API response
-
+                    Log.d("API Response", "Response: ${response.body()}")
                     recyclerView.adapter = MovieAdapter(movies)
                 } else {
+
+
+
                     showToast("Failed to load movies")
                 }
             }
-
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("error","Failed to load image:")
                 showToast("Error: ${t.message}")
             }
         })

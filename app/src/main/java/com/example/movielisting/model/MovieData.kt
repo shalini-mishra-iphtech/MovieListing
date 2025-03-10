@@ -5,5 +5,5 @@ data class MovieData (
       var first_name :String,
       var last_name:String,
       var email:String,
-      var avtar:String
+      var avatar:String
 )

@@ -1,6 +1,4 @@
 package com.example.movielisting.adapter
-
-import android.view.LayoutInflater
 import android.view.LayoutInflater.*
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +10,9 @@ import com.example.movielisting.model.MovieData
 import com.bumptech.glide.Glide
 
 class MovieAdapter(private val MovieList:List<MovieData>):RecyclerView.Adapter<MovieAdapter.MyViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-    val view= from(parent.context).inflate(R.layout.movie_item,parent,false)
+        val view= from(parent.context).inflate(R.layout.movie_item,parent,false)
         return MyViewHolder(view)
     }
 
@@ -31,7 +30,14 @@ class MovieAdapter(private val MovieList:List<MovieData>):RecyclerView.Adapter<M
         holder.firstName.text=user.first_name
         holder.lastName.text=user.last_name
         holder.email.text=user.email
-        Glide.with(holder.itemView.context).load(user.avtar).into(holder.imageAvtar)
+        Glide.with(holder.itemView.context)
+            .load(user.avatar)
+            .placeholder(R.drawable.dummy_image)
+            .error(R.drawable.error_image)
+            .into(holder.imageAvtar)
+
+
+            //Glide.with(holder.itemView.context).load(user.avtar).into(holder.imageAvtar)
     }
 
     override fun getItemCount()=MovieList.size
